@@ -1,0 +1,17 @@
+{
+  "name": "hotel-mng-rest",
+  "version": "1.0.0",
+  "description": "This is hotel mng project to learn node",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm test "
+  },
+  "keywords": [
+    "ThisIsHotelMngProject"
+  ],
+  "author": "Wahid KHan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
