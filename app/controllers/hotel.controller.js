@@ -30,7 +30,8 @@ module.exports.getOneHotel= (req,res,next)=>{
 }
 module.exports.addOneHotel= (req,res,next)=>{
     console.log("Add One Hotels Post");
-    res.status(200).json({MESSAGE:"Post request"})
+    console.log(req.body);    
+    res.status(200).json({data:req.body})
 }
 module.exports.updateOneHotel= (req,res,next)=>{
     console.log("Add One Hotels Put");
