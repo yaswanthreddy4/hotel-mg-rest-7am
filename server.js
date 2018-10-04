@@ -1,7 +1,9 @@
+require('./app/models/db.connection');
 var express= require('express');
+const CONFIG= require('./app/config')
 var app = express();
-app.set('port',3030);
-app.set('host','127.0.0.1');
+// app.set('port',3030);
+// app.set('host','127.0.0.1');
 var path = require('path');
 var bodyParser=require('body-parser')
 const homeRoutes =require('./app/routes');
@@ -35,6 +37,6 @@ app.use('/api',hotelsRoutes);
 console.log("I m Last Statement Of Server File");
 
 //server creation 
-app.listen(app.get('port'),app.get('host'),function(){
-    console.log("Server is Runnning on http://127.0.0.1:"+app.get('port'));
+app.listen(CONFIG.PORT,CONFIG.HOST,function(){
+    console.log("Server is Runnning on http://127.0.0.1:"+CONFIG.PORT);
 });
