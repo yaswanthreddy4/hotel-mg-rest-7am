@@ -1,9 +1,9 @@
 const host = '127.0.0.1';
 const port =3030;
-const dbUrl = 'mongodb://192.168.1.41:27017';
+const dbUrl = 'mongodb://appAdmin:password@192.168.1.41:27017';
 const dbUser='appAdmin';
 const dbPwd='password';
-const dbName='hotels';
+const dbName='meanhotel';
 const authSource='admin';
 
 module.exports ={
