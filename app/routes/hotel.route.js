@@ -16,4 +16,8 @@ router
 .route('/hotel/new')
 .post(hotelCtrl.addOneHotel);
 
+router
+.route('/bookhotel/:hotelId/:userId')
+.get(hotelCtrl.bookHotel);
+
 module.exports= router;
