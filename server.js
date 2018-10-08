@@ -1,4 +1,5 @@
-require('./app/models/db.connection').open();
+// require('./app/models/db.connection').open();
+require('./app/models/db.conn');
 var express= require('express');
 const CONFIG= require('./app/config')
 var app = express();

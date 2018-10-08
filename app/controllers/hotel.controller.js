@@ -1,5 +1,5 @@
-var hotelData = require('../models/data/hotel-data.json');
-var conn = require('../models/db.connection');
+// var hotelData = require('../models/data/hotel-data.json');
+// var conn = require('../models/db.connection');
 const CONFIG = require('../config');
 var ObjectId = require('mongodb').ObjectId;
 module.exports.getAllHotels = (req, res, next) => {
