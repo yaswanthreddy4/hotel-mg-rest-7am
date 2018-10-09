@@ -1,11 +1,10 @@
 // var hotelData = require('../models/data/hotel-data.json');
 // var conn = require('../models/db.connection');
+const mongoose = require('mongoose');
+var Hotel = mongoose.model('Hotel');
 const CONFIG = require('../config');
-var ObjectId = require('mongodb').ObjectId;
 module.exports.getAllHotels = (req, res, next) => {
     console.log(req.query);
-    var db = conn.get().db(CONFIG.DBNAME);
-    var collection = db.collection('hotel');
     var offset = 0;
     var count = 5;
     if (req.query && req.query.offset) {
@@ -14,9 +13,10 @@ module.exports.getAllHotels = (req, res, next) => {
     if (req.query && req.query.count) {
         count = parseInt(req.query.count, 10);
     }
-    collection
-        .find({}).skip(offset).limit(count)
-        .toArray(function (error, hotels) {
+    Hotel
+    .find()
+    .skip(offset).limit(count)
+    .exec(function (error, hotels) {
             if (error) {
                 console.log(error);
                 res
@@ -35,10 +35,10 @@ module.exports.getAllHotels = (req, res, next) => {
 module.exports.getOneHotel = (req, res, next) => {
     var hotelId = req.params.hotelId;
     console.log(req.params.hotelId);
-    var collection = conn.get().db(CONFIG.DBNAME).collection('hotel');
-    if (req.params && req.params.hotelId) {
-        collection.findOne({ _id: ObjectId(hotelId) },
-            function (error, hotel) {
+    if (req.params && req.params.hotelId) {        
+        Hotel
+        .findById(hotelId)
+        .exec(function (error, hotel) {
                 if (error) {
                     res
                         .status(404)
@@ -64,8 +64,13 @@ module.exports.addOneHotel = (req, res, next) => {
     console.log(req.body);
     if (req.body && req.body.name && req.body.stars &&
         req.body.address) {
-        var collection = conn.get().db(CONFIG.DBNAME).collection('hotel');
-        collection.insertOne(req.body, function (error, response) {
+        var newHotel = new Hotel({
+            name:req.body.name,
+            stars:req.body.stars,
+            'location.address':req.body.address
+        });
+        newHotel
+        .save(function (error, response) {
             if (error) {
                 res
                     .status(500).json({
