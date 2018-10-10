@@ -2,6 +2,7 @@
 // var conn = require('../models/db.connection');
 const mongoose = require('mongoose');
 var Hotel = mongoose.model('Hotel');
+var User = mongoose.model('User');
 const CONFIG = require('../config');
 module.exports.getAllHotels = (req, res, next) => {
     console.log(req.query);
@@ -90,10 +91,88 @@ module.exports.addOneHotel = (req, res, next) => {
     }
 }
 module.exports.updateOneHotel = (req, res, next) => {
-    console.log("Add One Hotels Put");
-    var filterQuery = { _id: ObjectId(hotelId) };
-    var updateQuery = { $set: req.body };
-    res.status(200).json({ MESSAGE: "Put request for updateOneHotel" })
+    try{
+        console.log("Update One Hotels Put");
+        var hotelId = req.params.hotelId;
+        var updateQuery = { $set:{ "name":req.body.name } };
+        Hotel
+        .findByIdAndUpdate(hotelId,updateQuery,function(error,response){
+            if(error) throw error;
+            res
+            .status(200)
+            .json({ 
+                message: "Updated One Hotel" ,
+                response:"ok"
+            });
+        });        
+    }catch(error){
+        res
+        .status(500)
+        .json({ 
+            message: "Error While Update One Hotel" ,
+            error:error
+        });
+    }
+    
+}
+module.exports.allReviewsForOneHotel = (req, res, next) => {
+    var hotelId = req.params.hotelId;
+    console.log(req.params.hotelId);
+    if (req.params && req.params.hotelId) {        
+        Hotel
+        .findById(hotelId)
+        .select('reviews') //for projecting reviews only
+        .exec(function (error, reviews) {
+                if (error) {
+                    res
+                        .status(404)
+                        .json({
+                            message: "Hotel Records Not Found",
+                            error: error
+                        });
+                } else {
+                    res
+                        .status(200)
+                        .json(reviews);
+                }
+            });
+    } else {
+        res
+            .status(404)
+            .json({ message: "Request Params HotelId is Not In Url" })
+    }
+}
+module.exports.OneReviewForHotel = (req, res, next) => {
+    var hotelId = req.params.hotelId;
+    var reviewId = req.params.reviewId;
+    console.log(req.params.hotelId);
+    if (req.params && req.params.hotelId && req.params.reviewId) {        
+        Hotel
+        .findById(hotelId)
+        .select('reviews') //for projecting reviews only
+        .exec(function (error, reviews) {
+                if (error) {
+                    res
+                        .status(404)
+                        .json({
+                            message: "Hotel Records Not Found",
+                            error: error
+                        });
+                } else {
+                    // console.log("reviewId========="+reviewId);
+                    // console.log(reviews);
+                    // console.log(reviews.reviews);                    
+                    var review = reviews.reviews.id(reviewId)
+                    res
+                        .status(200)
+                        .json(review);
+                }
+            });
+    } else {
+        res
+            .status(404)
+            .json({ message: "Request Params HotelId is Not In Url" })
+    }
 }
 module.exports.removeOneHotel = (req, res, next) => {
     console.log("Add One Hotels delete");
@@ -103,29 +182,29 @@ module.exports.patchOneHotel = (req, res, next) => {
     console.log("Add One Hotels patch");
     res.status(200).json({ MESSAGE: "patch request for patchOneHotel" })
 }
-// module.exports.bookHotel =  async (req, res, next) => {
-//     console.log(req.params);
-//     var hotel = await findOneHotel(req.params.hotelId);
-//     console.log("Add One Hotels patch");
-//     res.status(200).json(hotel)
-// }
 
-// async function findOneHotel(hotelId) {
-//     var response =null;
-//     var collection = conn.get().db(CONFIG.DBNAME).collection('hotel');
-//     collection.findOne({ _id: ObjectId(hotelId) },
-//         await function (error, hotel) {
-//             if (error) {
-//                console.log("Error While Finding Hotel");
-               
-//             } else {
-//                 response=hotel;
-//                 console.log(hotel);
-                
-//             }
-//         });
-//         return response; 
-// }
+module.exports.bookHotel =  async (req, res, next) => {
+    console.log(req.params);
+    var hotelId= req.params.hotelId;
+    var userId= req.params.userId;
+    findOneHotelOneUser(hotelId,userId).then((data)=>{
+        console.log(data);        
+        res.status(200).json(hotel);
+    });   
+   
+}
+
+async function findOneHotelOneUser(hotelId,userId) {
+   if(!hotelId){
+       throw new Error("Hotel Id Not Found");
+   }
+   var hotel = await Hotel.findById(hotelId);
+   var user = await User.findById(userId);
+   return {
+       hotel:hotel,
+       user:user
+   };
+}
 
 // function findOneUser(userId) {
 //     var response =null;

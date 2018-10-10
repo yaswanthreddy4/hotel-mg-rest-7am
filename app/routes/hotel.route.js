@@ -16,6 +16,18 @@ router
 .route('/hotel/new')
 .post(hotelCtrl.addOneHotel);
 
+router
+.route('/hotel/:hotelId/reviews')
+.get(hotelCtrl.allReviewsForOneHotel);
+
+router
+.route('/hotel/:hotelId/reviews/:reviewId')
+.get(hotelCtrl.OneReviewForHotel);
+
+router
+.route('/bookhotel/:hotelId/:userId')
+.get(hotelCtrl.bookHotel);
+
 // router
 // .route('/bookhotel/:hotelId/:userId')
 // .get(hotelCtrl.bookHotel);

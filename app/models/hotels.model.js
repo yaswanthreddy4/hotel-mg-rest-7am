@@ -35,8 +35,8 @@ var hotelSchema = mongoose.Schema({
     rooms:[roomsSchema],
     location:locationSchema,
     services:[String],
-    reviews:reviewsSchema
+    reviews:[reviewsSchema]
     // versionKey:'v1'
 });
 
-mongoose.model('Hotel',hotelSchema,'hotels.data');
+mongoose.model('Hotel',hotelSchema,'hotels');

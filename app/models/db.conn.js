@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const CONFIG = require('../config');
 require('./hotels.model'); //register model
+require('./users.model'); //register model
 
 const OPTIONS ={
     user:CONFIG.DBUSR,

@@ -9,6 +9,7 @@ var path = require('path');
 var bodyParser=require('body-parser')
 const homeRoutes =require('./app/routes');
 const hotelsRoutes =require('./app/routes/hotel.route');
+const usersRoutes =require('./app/routes/users.route');
 //allow urlencoded data as body 
 app.use(bodyParser.urlencoded({extended:false}));
 //allows json data as body
@@ -32,6 +33,7 @@ app.use(function(req,res,next){
 //router linking
 app.use('/',homeRoutes);
 app.use('/api',hotelsRoutes);
+app.use('/api',usersRoutes);
 
 
 
