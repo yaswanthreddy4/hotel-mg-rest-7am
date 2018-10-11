@@ -26,7 +26,7 @@ router
 
 router
 .route('/bookhotel/:hotelId/:userId')
-.get(hotelCtrl.bookHotel);
+.put(hotelCtrl.bookHotel);
 
 // router
 // .route('/bookhotel/:hotelId/:userId')

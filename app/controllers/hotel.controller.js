@@ -182,22 +182,90 @@ module.exports.patchOneHotel = (req, res, next) => {
     console.log("Add One Hotels patch");
     res.status(200).json({ MESSAGE: "patch request for patchOneHotel" })
 }
+module.exports.showBookedHotel =  async (req, res, next) => {
+    var userId= req.params.userId;
+    console.log(req.params.userId);
+    if (req.params && req.params.userId) {        
+        User
+        .findById(userId)
+        .select("bookHistory")
+        .exec(function (error, hotels) {
+                if (error) {
+                    res
+                        .status(500)
+                        .json({
+                            message: "Internal Server Error While Show Hotel History",
+                            error: error
+                        });
+                } else {
+                    res
+                        .status(200)
+                        .json(hotels);
+                }
+            });
+    } else {
+        res
+            .status(404)
+            .json({ message: "Request Params UserId  is Not In Url" })
+    }
+}
+
 
 module.exports.bookHotel =  async (req, res, next) => {
-    console.log(req.params);
+    try{
+        // console.log(req.params);
     var hotelId= req.params.hotelId;
     var userId= req.params.userId;
     findOneHotelOneUser(hotelId,userId).then((data)=>{
-        console.log(data);        
-        res.status(200).json(hotel);
-    });   
-   
+        // console.log(data);        
+        // res.status(200).json(data);
+        var bookHotelHistory ={ $push:{'bookHistory':[
+            { 
+                name:data.hotel.name,
+                hotelId:data.hotel._id,
+                price:data.hotel.rooms[0].price,
+                bookingDate:new Date(),
+                checkIn: new Date(),
+                checkOut: new Date(),
+            }
+        ]}}
+        if(data.user._id){
+            User.findByIdAndUpdate(userId,bookHotelHistory,
+                function(err,doc){
+                if(err){
+                    res
+                    .set('application/json')
+                    .status(500).json({
+                        error:err,
+                        message:"Booking Is not Completed Due to Server Error"
+                    })
+                }else{
+                    res.status(200)
+                    .json({
+                        response:true,
+                        message:"Booking Completed !"
+                    })
+                }
+            })
+        }else{
+            res.status(404).json({
+                message:"For Booking User Not Found!"
+            });
+        }
+    });  
+    }catch(error){
+            res.status(500).json(error)
+    }
+    
 }
 
 async function findOneHotelOneUser(hotelId,userId) {
    if(!hotelId){
        throw new Error("Hotel Id Not Found");
    }
+   if(!userId){
+    throw new Error("User Id Not Found");
+    }
    var hotel = await Hotel.findById(hotelId);
    var user = await User.findById(userId);
    return {
