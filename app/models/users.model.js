@@ -8,13 +8,24 @@ var hotelBookSchema = mongoose.Schema({
     checkOut:Date
 });
 var usersSchema = mongoose.Schema({
-    name:String,
-    role:String,
+    name:{
+        type:String,
+        required:true
+    },
+    role:{
+        type:String,
+        "default":"user"
+    },
     phoneNumber:String,
     description:String,
-    email:String,
+    email:{
+        type:String,
+        unique:true,
+        required:true
+    },
     gender:String,
     lastLogin:Date,
-    bookHistory:[hotelBookSchema]
+    bookHistory:[hotelBookSchema],
+    password:String
 });
 mongoose.model('User',usersSchema,'hotels.htusers');
