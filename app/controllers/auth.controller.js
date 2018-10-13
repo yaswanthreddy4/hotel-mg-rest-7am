@@ -2,7 +2,63 @@ const mongoose = require('mongoose');
 var User = mongoose.model('User');
 const CONFIG = require('../config');
 const bcrypt  = require('bcrypt');
+const jwt  = require('jsonwebtoken');
 
+module.exports.tokenValidator =(req,res,next)=>{
+    // console.log("authenticator=====");    
+    var token = req.headers['x-access-token'];
+    if(!token){
+        res
+        .status(404)
+        .json({
+            message: "Token Not Found !",
+            token:null,
+            auth:false
+        });
+    }else{
+        jwt.verify(token,CONFIG.SCRTKEY,function(error,doc){
+            if(error){
+                res
+                .status(401)
+                .json({
+                    message: "Failed To authencate Token :: Invlaid Token {Unautherized User Incedent Reported}",
+                    token:null,
+                    auth:false
+                });  
+            }else{
+                // console.log("Documnet ",doc);
+                User.findById(doc._id,function(error,user){
+                    if(error){
+                        res
+                        .status(500)
+                        .json({
+                            message: "User NOt Found Via Token :: Internal Server Error",
+                            token:null,
+                            auth:false
+                        });  
+                    }
+                    if(!user){
+                        res
+                        .status(404)
+                        .json({
+                            message: "User Not Found Via Token",
+                            token:null,
+                            auth:false
+                        });  
+                    }else{
+                        // res
+                        // .status(200).json({
+                        //     message: "Valid Token",
+                        //     auth:true
+                        // });  
+                        next(); //Other Function Call After token Verification
+                    }
+                }); //User find Query
+                
+            }
+        }); //jwt verify
+    }
+}
 module.exports.registration =(req,res,next)=>{
     if ( req.body && req.body.name &&   req.body.email && 
          req.body.password &&  req.body.phoneNumber ){ 
@@ -25,11 +81,13 @@ module.exports.registration =(req,res,next)=>{
                     error:err
                 });
             }else{
+                var token  = jwt.sign({_id:user._id},CONFIG.SCRTKEY,{expiresIn:43200})
                 res
                 .status(200)
                 .json({
                     message: "Rgistration SuccessFull !",
                     auth:true,
+                    token:token
                     // user:user
                 });
             }
@@ -72,11 +130,13 @@ module.exports.login =(req,res,next)=>{
                             auth:false
                         });
                     }else{
+                    var token  = jwt.sign({_id:user._id},CONFIG.SCRTKEY,{expiresIn:43200})
                         res
                         .status(200)
                         .json({
                             message: "Login SucessFull !",
-                            auth:true
+                            auth:true,
+                            token:token
                             // user:user
                         });
                     }  

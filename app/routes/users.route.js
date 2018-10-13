@@ -9,10 +9,6 @@ router
 .post(userCtrl.addOneUser);
 
 router
-.route('/user/:userId')
-.get(userCtrl.getOneUser);
-
-router
 .route('/user/showHotels/:userId')
 .get(hotelCtrl.showBookedHotel);
 
@@ -23,4 +19,14 @@ router
 router
 .route('/user/login')
 .post(authCtrl.login);
+
+router
+.route('/user/token')
+.get(authCtrl.tokenValidator);
+
+router
+.route('/user/:userId')
+.get(userCtrl.getOneUser);
+
+
 module.exports= router;

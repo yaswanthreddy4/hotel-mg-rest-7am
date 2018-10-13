@@ -6,7 +6,7 @@ const dbUser='appAdmin';
 const dbPwd='password';
 const dbName='meanhotel';
 const authSource='admin';
-
+const secretKey = "ThisIsWahidJWTClass7am";
 module.exports ={
     PORT:port,
     HOST:host,
@@ -14,5 +14,6 @@ module.exports ={
     DBUSR:dbUser,
     DBPWD:dbPwd,
     DBNAME:dbName,
-    DBAUTHSRC:authSource
+    DBAUTHSRC:authSource,
+    SCRTKEY:secretKey
 }

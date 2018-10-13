@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const hotelCtrl  = require('../controllers/hotel.controller')
+const hotelCtrl  = require('../controllers/hotel.controller');
+const authCtrl  = require('../controllers/auth.controller');
 
 router
 .route('/hotels')
-.get(hotelCtrl.getAllHotels);
+.get(authCtrl.tokenValidator,hotelCtrl.getAllHotels);
 
 router
 .route('/hotel/:hotelId')
@@ -26,7 +27,7 @@ router
 
 router
 .route('/bookhotel/:hotelId/:userId')
-.put(hotelCtrl.bookHotel);
+.put(authCtrl.tokenValidator,hotelCtrl.bookHotel);
 
 // router
 // .route('/bookhotel/:hotelId/:userId')
