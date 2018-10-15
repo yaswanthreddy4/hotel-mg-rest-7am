@@ -10,17 +10,16 @@ var bodyParser=require('body-parser')
 const homeRoutes =require('./app/routes');
 const hotelsRoutes =require('./app/routes/hotel.route');
 const usersRoutes =require('./app/routes/users.route');
+//require log4js 
+const log4js = require('log4js');
+const fs = require('fs');
 //allow urlencoded data as body 
 app.use(bodyParser.urlencoded({extended:false}));
 //allows json data as body
 app.use(bodyParser.json({type:'application/json'}));
-//allow text data as req body 
-// app.use(bodyParser.text({type:'text/plain'}));
-// app.use(bodyParser.text({type:'text/xml'}));
-// app.use(bodyParser.text({type:'text/html'}));
-//allow raw data as req body ass all media type but data processed as buffer
-// app.use(bodyParser.raw({type:'text/*',limit:'100kb'}));
-// app.use(bodyParser.raw({ type: 'application/json' }))
+
+
+log4js.configure('./app/config/log4js.json');
 
 //middle fun for hosting static data
 // app.use(express.static(path.join(__dirname,'public')));
