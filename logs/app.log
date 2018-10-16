@@ -1,0 +1,61 @@
+[2018-10-16T08:03:21.900] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:03:21.902] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:03:41.648] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:03:41.650] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:04:23.583] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:04:23.584] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:04:34.258] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:04:34.264] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:09:30.895] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:09:30.897] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:09:46.619] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:09:46.621] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:10:44.992] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:10:44.993] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:11:44.283] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:11:44.285] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:11:47.482] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:11:47.485] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:14:00.585] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:14:00.586] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:14:14.488] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:14:14.490] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:15:58.085] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:15:58.086] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:17:51.781] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:17:51.784] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:21:22.303] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:21:22.305] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:24:23.811] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:24:23.812] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:24:31.636] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:24:31.637] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:24:37.023] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:24:37.024] [INFO] startup - -----------------------------------------------------
+[2018-10-16T08:25:54.768] [INFO] access -  Uri Hit :POST    /register
+[2018-10-16T08:26:56.229] [INFO] access -  Uri Hit :POST    /api/register
+[2018-10-16T08:27:16.510] [INFO] access -  Uri Hit :POST    /api/user/register
+[2018-10-16T08:27:16.515] [ERROR] error - Failed To Register a User, Required Feilds are Missing
+[2018-10-16T08:27:49.306] [INFO] access -  Uri Hit :POST    /api/user/register
+[2018-10-16T08:27:49.307] [ERROR] error - Failed To Register a User, Required Feilds are Missing
+[2018-10-16T08:28:06.491] [INFO] access -  Uri Hit :POST    /api/user/register
+[2018-10-16T08:28:06.722] [INFO] users - User is Registered SuccessFully with Token :: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmM1NTNiZWNjNTBmZjM5ZTMzNTI1YzkiLCJpYXQiOjE1Mzk2NTg2ODYsImV4cCI6MTUzOTcwMTg4Nn0.qHUK7wBmpNMTZHBPQYi6WXPieOZP58SveEI-DxDBKjs
+[2018-10-16T08:29:43.060] [INFO] access -  Uri Hit :POST    /api/user/login
+[2018-10-16T08:29:43.176] [INFO] users - Login SucessFull ! with Token :: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmM1NTNiZWNjNTBmZjM5ZTMzNTI1YzkiLCJpYXQiOjE1Mzk2NTg3ODMsImV4cCI6MTUzOTcwMTk4M30.fKhoafAK-ycc4200A2zG4UazWP1CTzeXlvXhWO14RMU
+[2018-10-16T08:30:29.274] [INFO] access -  Uri Hit :POST    /api/user/login
+[2018-10-16T08:30:29.376] [INFO] users - Login SucessFull ! with Token :: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmM1NTNiZWNjNTBmZjM5ZTMzNTI1YzkiLCJpYXQiOjE1Mzk2NTg4MjksImV4cCI6MTUzOTcwMjAyOX0.sRNEWe1c-C6ASgfPxd_TuHu_V6tNVtiLAVViBwFXjoE
+[2018-10-16T08:30:38.603] [INFO] access -  Uri Hit :POST    /api/user/login
+[2018-10-16T08:30:38.701] [INFO] users - Login SucessFull ! with Token :: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmM1NTNiZWNjNTBmZjM5ZTMzNTI1YzkiLCJpYXQiOjE1Mzk2NTg4MzgsImV4cCI6MTUzOTcwMjAzOH0.LF7Q5QSCKKXdUAGRdDZEwWPP5_gttKGrSwbiSU8vuIY
+[2018-10-16T08:30:50.913] [INFO] access -  Uri Hit :POST    /api/user/login
+[2018-10-16T08:30:51.013] [INFO] users - Login SucessFull ! with Token :: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YmM1NTNiZWNjNTBmZjM5ZTMzNTI1YzkiLCJpYXQiOjE1Mzk2NTg4NTEsImV4cCI6MTUzOTcwMjA1MX0.3grEkoP3AzG0AeQUD1w1kW7zrXZk9gFTcQ6pJ1CUcD8
+[2018-10-16T08:31:42.648] [INFO] access -  Uri Hit :POST    /api/hotels
+[2018-10-16T08:31:47.098] [INFO] access -  Uri Hit :GET    /api/hotels
+[2018-10-16T08:31:47.099] [ERROR] error - Token Not Found !
+[2018-10-16T08:32:15.641] [INFO] access -  Uri Hit :GET    /api/hotels
+[2018-10-16T08:32:15.642] [ERROR] error - Token Not Found !
+[2018-10-16T08:32:31.248] [INFO] access -  Uri Hit :GET    /api/hotels
+[2018-10-16T08:32:31.249] [ERROR] error - Token Not Found !
+[2018-10-16T08:33:00.701] [INFO] access -  Uri Hit :GET    /api/hotels
+[2018-10-16T08:33:00.709] [INFO] users - Valid Token grant access next method trigger
+[2018-10-16T08:44:07.975] [INFO] startup - Server is Runnning on http://127.0.0.1:3030
+[2018-10-16T08:44:07.977] [INFO] startup - -----------------------------------------------------

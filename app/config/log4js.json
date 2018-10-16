@@ -25,13 +25,11 @@
         "error":{
             "type":"logLevelFilter",
             "appender":"errorFile",
-            "level":"ERROR",
-            "category":"bugs"
+            "level":"ERROR"
         }
     },
     "categories":{ 
-        "default":{ "appenders":["users","app"],"level":"DEBUG"},
-        "http":{ "appenders":["access"],"level":"TRACE"},
-        "bugs":{"appenders":["error"]}
+        "default":{ "appenders":["users","app","error"],"level":"DEBUG"},
+        "http":{ "appenders":["access"],"level":"TRACE"}
     }
 }

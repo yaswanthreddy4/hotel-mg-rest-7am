@@ -3,6 +3,13 @@ var User = mongoose.model('User');
 const CONFIG = require('../config');
 const bcrypt  = require('bcrypt');
 const jwt  = require('jsonwebtoken');
+const log4js  = require('log4js');
+
+//configure log4js
+log4js.configure('./app/config/log4js.json');
+var usersLogger = log4js.getLogger('users');
+var accessLogger = log4js.getLogger('access');
+var errorLogger = log4js.getLogger('error');
 
 module.exports.tokenValidator =(req,res,next)=>{
     // console.log("authenticator=====");    
@@ -15,6 +22,7 @@ module.exports.tokenValidator =(req,res,next)=>{
             token:null,
             auth:false
         });
+        errorLogger.error( "Token Not Found !");
     }else{
         jwt.verify(token,CONFIG.SCRTKEY,function(error,doc){
             if(error){
@@ -24,7 +32,8 @@ module.exports.tokenValidator =(req,res,next)=>{
                     message: "Failed To authencate Token :: Invlaid Token {Unautherized User Incedent Reported}",
                     token:null,
                     auth:false
-                });  
+                });
+            errorLogger.error( "Failed To authencate Token :: Invlaid Token {Unautherized User Incedent Reported}");
             }else{
                 // console.log("Documnet ",doc);
                 User.findById(doc._id,function(error,user){
@@ -35,7 +44,8 @@ module.exports.tokenValidator =(req,res,next)=>{
                             message: "User NOt Found Via Token :: Internal Server Error",
                             token:null,
                             auth:false
-                        });  
+                        });
+                    errorLogger.error( "User NOt Found Via Token :: Internal Server Error");
                     }
                     if(!user){
                         res
@@ -44,7 +54,8 @@ module.exports.tokenValidator =(req,res,next)=>{
                             message: "User Not Found Via Token",
                             token:null,
                             auth:false
-                        });  
+                        });
+                    errorLogger.error( "User Not Found Via Token");
                     }else{
                         // res
                         // .status(200).json({
@@ -52,6 +63,7 @@ module.exports.tokenValidator =(req,res,next)=>{
                         //     auth:true
                         // });  
                         next(); //Other Function Call After token Verification
+                    usersLogger.info("Valid Token grant access next method trigger")
                     }
                 }); //User find Query
                 
@@ -80,6 +92,7 @@ module.exports.registration =(req,res,next)=>{
                     message: "Failed to Register a User ..Internal Server Error",
                     error:err
                 });
+                errorLogger.error("Failed to Register a User ..Internal Server Error")
             }else{
                 var token  = jwt.sign({_id:user._id},CONFIG.SCRTKEY,{expiresIn:43200})
                 res
@@ -90,6 +103,7 @@ module.exports.registration =(req,res,next)=>{
                     token:token
                     // user:user
                 });
+                usersLogger.info("User is Registered SuccessFully with Token :: "+token)
             }
         });
     }else{
@@ -98,6 +112,7 @@ module.exports.registration =(req,res,next)=>{
                 .json({
                     message: "Required Feilds are Missing",
                 });
+        errorLogger.error("Failed To Register a User, Required Feilds are Missing")
     }
 }
 
@@ -112,6 +127,7 @@ module.exports.login =(req,res,next)=>{
                     error:error,
                     auth:false
                 });
+                errorLogger.error( "Failed to Login a User ..Internal Server Error")
             }else{
                 if(!user){
                 res
@@ -120,15 +136,17 @@ module.exports.login =(req,res,next)=>{
                     message: "User Not Found! Get Registered",
                     auth:false
                 });
+                errorLogger.error("User Not Found! Get Registered")
                 }else{
                     var isPwd = bcrypt.compareSync(req.body.password,user.password)
                     if(!isPwd){
                         res
                         .status(401)
                         .json({
-                            message: "Invalid Password !",
+                            message: "Invalid Password !  Not Match",
                             auth:false
                         });
+                     errorLogger.error("Invalid Password ! Not Match")
                     }else{
                     var token  = jwt.sign({_id:user._id},CONFIG.SCRTKEY,{expiresIn:43200})
                         res
@@ -139,6 +157,7 @@ module.exports.login =(req,res,next)=>{
                             token:token
                             // user:user
                         });
+                        usersLogger.info("Login SucessFull ! with Token :: "+token)
                     }  
                 }
             }
@@ -147,7 +166,8 @@ module.exports.login =(req,res,next)=>{
         res
         .status(404)
         .json({
-            message: "Required Feilds are Missing",
+            message: "Required Feilds are Missing For Log In",
         });
+        errorLogger.error("Required Feilds are Missing For Log In")
     }
 }

@@ -18,15 +18,28 @@ app.use(bodyParser.urlencoded({extended:false}));
 //allows json data as body
 app.use(bodyParser.json({type:'application/json'}));
 
-
+//configure log4js
 log4js.configure('./app/config/log4js.json');
+var startupLogger = log4js.getLogger('startup');
+var accessLogger = log4js.getLogger('access');
+
+//create Logs Directories
+try{
+    fs.mkdirSync('./logs');
+}catch(error){
+    if(error.code !='EEXIST'){
+        console.error("Could Not setup Log Directory",error);
+        process.exit(1);
+    }
+}
 
 //middle fun for hosting static data
 // app.use(express.static(path.join(__dirname,'public')));
 
 //access point (method that signify the routes path and method)
 app.use(function(req,res,next){
-    console.log(req.method +"    "+req.url);
+    // console.log(req.method +"    "+req.url);
+    accessLogger.info(" Uri Hit :"+ req.method +"    "+req.url);
     next();
 });
 //router linking
@@ -41,4 +54,6 @@ console.log("I m Last Statement Of Server File");
 //server creation 
 app.listen(CONFIG.PORT,CONFIG.HOST,function(){
     console.log("Server is Runnning on http://127.0.0.1:"+CONFIG.PORT);
+    startupLogger.info("Server is Runnning on http://127.0.0.1:"+CONFIG.PORT);
+    startupLogger.info("-----------------------------------------------------");
 });
